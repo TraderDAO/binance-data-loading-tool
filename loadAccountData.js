@@ -6,22 +6,34 @@ const apiSecret = process.env.API_SECRET;
 const binanceClient = new Spot(apiKey, apiSecret);
 
 const main = async () => {
-  // Convert Trade History
   console.log(
-    (await binanceClient.convertTradeHistory(1661796367413, 1665742170000)).data
+    (
+      await binanceClient.bookTicker("", [
+        "BTCUSDT",
+        "BNBUSDT",
+        "ETHUSDT",
+        "MATICUSDT",
+        "SOLUSDT",
+        "AVAXUSDT",
+      ])
+    ).data
   );
+  // Convert Trade History
+  // console.log(
+  //   (await binanceClient.convertTradeHistory(1661796367413, 1665742170000)).data
+  // );
 
-  // Account Balance
-  console.log((await binanceClient.account()).data);
+  // // Account Balance
+  // console.log((await binanceClient.account()).data);
 
-  // Trades History
-  console.log((await binanceClient.myTrades("BATBUSD")).data);
+  // // Trades History
+  // console.log((await binanceClient.myTrades("BATBUSD")).data);
 
-  // Dust
-  console.log((await binanceClient.dustLog()).data.userAssetDribblets[0]);
+  // // Dust
+  // console.log((await binanceClient.dustLog()).data.userAssetDribblets[0]);
 
-  // Withdraw History
-  console.log((await binanceClient.withdrawHistory({ coin: "BUSD" })).data);
+  // // Withdraw History
+  // console.log((await binanceClient.withdrawHistory({ coin: "BUSD" })).data);
 };
 
 main();
